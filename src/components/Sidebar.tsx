@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useSelectedLayoutSegments } from 'next/navigation';
 import React, { useState, type ReactNode } from 'react';
 import Layout from './Layout';
+import { useAuth } from './AuthContext';
 
 const VerticalIconContainer = ({ children }: { children: ReactNode }) => {
   return (
@@ -14,6 +15,7 @@ const VerticalIconContainer = ({ children }: { children: ReactNode }) => {
 };
 
 const Sidebar = ({ children }: { children: React.ReactNode }) => {
+  const { logout } = useAuth();
   const segments = useSelectedLayoutSegments();
 
   const navLinks = [
@@ -40,7 +42,14 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-20 lg:flex-col">
+         <button
+            onClick={logout}
+            className="w-full bg-gradient-to-b from-gray-400 to-zinc-200 text-black py-2 px-2 rounded-md hover:bg-red-700 transition text-sm"
+          >
+            Logout
+          </button>
         <div className="flex grow flex-col items-center justify-between gap-y-5 overflow-y-auto bg-light-secondary dark:bg-dark-secondary px-2 py-8">
+
           <a href="/">
             <SquarePen className="cursor-pointer" />
           </a>
